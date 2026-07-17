@@ -1,7 +1,7 @@
 pipeline {
     // If your Jenkins agent has a specific label 'node', keep it. 
     // Otherwise, change this to 'agent any' if it hangs on execution.
-    agent { label 'node' } 
+    agent { label 'any' } 
     
     stages {
         stage('Checkout') {
