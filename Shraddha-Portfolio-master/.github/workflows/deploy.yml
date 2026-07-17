@@ -1,0 +1,27 @@
+name: Deploy to EC2 with Docker  
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: self-hosted 
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Build Docker Image
+        run: |
+          docker build -t portfolio:latest .
+
+      - name: Stop Old Container (if exists)
+        run: |
+          docker stop port-cont || true
+          docker rm port-cont || true
+
+      - name: Run Docker Container
+        run: |
+          docker run -d -p 80:5173 --name port-cont portfolio:latest
